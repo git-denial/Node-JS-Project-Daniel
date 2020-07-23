@@ -1,16 +1,11 @@
 const Joi = require('joi');
-const mysql = require('mysql');
 const express = require('express');
 const app = express();
+const connection = require('./databaseconnection.js');
 
 app.use(express.json());
 
-const connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "1234",
-  database: "nodejsproject"
-});
+
 
 connection.connect(function(err) {
   if (err) throw err;
