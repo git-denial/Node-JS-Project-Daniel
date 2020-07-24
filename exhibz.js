@@ -83,34 +83,19 @@ app.post('/credits', (req, res) => {
 
 app.get('/ticket/:email', (req, res) => {
 	var ticket = {};
+	var sql = 	`SELECT COUNT(ticket) earlybird, 
+				(SELECT COUNT(ticket) FROM user_ticket WHERE email = "${req.params.email}" AND ticket = 'regular')regular, 
+				(SELECT COUNT(ticket) FROM user_ticket WHERE email = "${req.params.email}" AND ticket = 'platinum')platinum 
+				FROM user_ticket WHERE email = '${req.params.email}' AND ticket = 'earlybird'`;
 	
-	connection.query( `SELECT COUNT(ticket) ticket FROM user_ticket WHERE email = '${req.params.email}' AND ticket = 'earlybird'` ,(err, result, fields) => {
+	connection.query(sql,(err, result, fields) => {
 		if (err) throw err;
 		
-		if(result == 0)
-			ticket.earlybird = 0;
-		else
-			ticket.earlybird = result[0].ticket;
-	});
-	
-	connection.query( `SELECT COUNT(ticket) ticket FROM user_ticket WHERE email = '${req.params.email}' AND ticket = 'regular'` ,(err, result, fields) => {
-		if (err) throw err;
-		
-		if(result == 0)
-			ticket.regular = 0;
-		else
-			ticket.regular = result[0].ticket;
-	});
-	
-	connection.query( `SELECT COUNT(ticket) ticket FROM user_ticket WHERE email = '${req.params.email}' AND ticket = 'platinum'` ,(err, result, fields) => {
-		if (err) throw err;
-		
-		if(result == 0)
-			ticket.platinum = 0;
-		else
-			ticket.platinum = result[0].ticket;
-		
+		ticket.earlybird = result[0].earlybird;
+		ticket.regular = result[0].regular;
+		ticket.platinum = result[0].platinum;
 		res.json(ticket);
+		
 	});
 });
 
