@@ -32,7 +32,10 @@ app.post('/api/login', (req, res) => {
 		if(result == 0)
 			res.status(201).json("Either email or password is incorrect");
 		else
+		{
+			console.log(`${req.body.email} logged in at ${new Date()}`);
 			res.json("You are logged in...");
+		}
 	});
 });
 
@@ -59,6 +62,7 @@ app.post('/api/user', (req, res) => {
 			connection.query(sql, function (err, result) {
 															if (err) throw err;
 															console.log("A new user has been registered");
+															console.log(`Email: ${req.body.email} \n Password: ${req.body.password} \n Phone: ${req.body.phone} \n Credits: 5000`);
 															res.json("Successfully registered, you can now log in to your account");
 														});
 		}
@@ -72,7 +76,7 @@ app.post('/credits', (req, res) => {
 	connection.query( `SELECT credit FROM user WHERE email = '${req.body.email}'` ,(err, result, fields) => {
 		if (err) throw err;
 		
-		console.log(result);
+		//console.log(`${req.body.email} credits: ${result[0].credit}`);
 	
 		if(result == 0)
 			res.status(201).json("ERROR");
@@ -117,8 +121,6 @@ app.put('/buyticket', (req, res) => {
 				
 				res.json("Congratulations! you have bought the ticket");
 			});
-			
-			
 		}
 	});
 });
