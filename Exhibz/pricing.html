@@ -99,14 +99,13 @@
 										  
 														  
 						  
-					 <div id="creditpane"  hidden>
-						<li class="nav-item">
+						<li class="nav-item creditpane" hidden>
 							<a>Credits:</a>						
 						</li>					  
-						<li class="nav-item">
+						<li class="nav-item creditpane" hidden>
 							<a class="counterUp" data-counter="0" id="credits">0</a>
 						</li>
-					 </div>
+					 
 					 
 					
                      <li class="header-ticket nav-item">
@@ -460,7 +459,7 @@ if(sessionStorage.getItem("user") !== null)
 				
 					$("#credits").attr("data-counter" , user);
 					countercounter();
-					$("#creditpane").removeAttr("hidden");
+					$(".creditpane").removeAttr("hidden");
 				}
 				
 				else
