@@ -525,7 +525,7 @@ function buy(price, ticket)
 				{
 					$("#credits").attr("data-counter" , parseInt( $("#credits").html() ) - price);
 					$(`#${ticket}-amount`).html( parseInt($(`#${ticket}-amount`).html()) + 1 );
-					countercounter();
+					countercurrent( $("#credits").html() );
 					alert(user);
 				}
 				

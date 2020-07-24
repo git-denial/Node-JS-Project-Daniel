@@ -50,6 +50,35 @@ function countercounter()
       }
 		 
 	 }
+	 
+	 function countercurrent(das)
+	 {
+		 let skl = true;
+		 if (skl) {
+         $('.counterUp').each(function () {
+            var $this = $(this);
+            jQuery({
+               Counter: das
+            }).animate({
+               Counter: $this.attr('data-counter')
+            }, {
+               duration: 3000,
+               easing: 'swing',
+               step: function () {
+                  var num = Math.ceil(this.Counter).toString();
+                  if (Number(num) > 99999) {
+                     while (/(\d+)(\d{3})/.test(num)) {
+                        num = num.replace(/(\d+)(\d{3})/, '');
+                     }
+                  }
+                  $this.html(num);
+               }
+            });
+         });
+         skl = false;
+      }
+		 
+	 }
 
 jQuery(function ($) {
 
