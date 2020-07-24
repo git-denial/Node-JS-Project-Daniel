@@ -133,7 +133,7 @@ function validate(information) {
 	
     const schema = Joi.object({
 		 email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }),
-		 password: Joi.string().pattern(new RegExp('[0-z]{8}')),
+		 password: Joi.string().pattern(new RegExp('[ -~]{8}')),
 		 phone: Joi.number()
     });
     
