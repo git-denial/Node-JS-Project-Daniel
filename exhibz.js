@@ -132,9 +132,9 @@ app.listen(port, () => {
 function validate(information) {
 	
     const schema = Joi.object({
-		 email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }),
-		 password: Joi.string().pattern(new RegExp('[ -~]{8}')),
-		 phone: Joi.number()
+		 email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }).max(30),
+		 password: Joi.string().pattern(new RegExp('[ -~]{8,30}')),
+		 phone: Joi.string().max(30)
     });
     
 	return schema.validate(information);
